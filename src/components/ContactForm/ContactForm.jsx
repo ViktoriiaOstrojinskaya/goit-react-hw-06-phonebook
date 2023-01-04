@@ -1,22 +1,21 @@
 import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { Form, FormInput, ButtonAddContact } from './ContactForm.styled';
 
-import { useDispatch } from 'react-redux';
-import { addConact } from 'redux/contactsSlice';
-
-export const ContactForm = ({ onSubmit }) => {
-  const dispatch = useDispatch();
+export default function ContactForm({ onSubmit }) {
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
 
   const handleChange = event => {
     const { name, value } = event.target;
 
     switch (name) {
       case 'name':
-        dispatch(addConact(value));
+        setName(value);
         break;
 
       case 'number':
-        dispatch(addConact(value));
+        setNumber(value);
         break;
 
       default:
@@ -26,12 +25,13 @@ export const ContactForm = ({ onSubmit }) => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const form = event.target;
-    dispatch(
-      addConact(form.elements.name.value),
-      addConact(form.elements.number.value)
-    );
-    form.reset();
+    onSubmit(name, number);
+    reset();
+  };
+
+  const reset = () => {
+    setName('');
+    setNumber('');
   };
 
   return (
@@ -44,6 +44,7 @@ export const ContactForm = ({ onSubmit }) => {
           pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
+          value={name}
           onChange={handleChange}
         />
       </label>
@@ -56,6 +57,7 @@ export const ContactForm = ({ onSubmit }) => {
           pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
+          value={number}
           onChange={handleChange}
         />
       </label>
@@ -64,7 +66,7 @@ export const ContactForm = ({ onSubmit }) => {
       </ButtonAddContact>
     </Form>
   );
-};
+}
 
 ContactForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,

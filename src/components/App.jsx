@@ -6,11 +6,11 @@ import { Title } from './Title/Title';
 import { Box } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
+import { getContacts } from 'redux/selectors';
 
 export default function App() {
   const dispatch = useDispatch();
-  const contactsList = useSelector(state => state.contacts);
-  const filter = useSelector(state => state.filters);
+  const contactsList = useSelector(getContacts);
 
   const addNewContact = (id, name, number) => {
     contactsList.find(contact => contact.name === name)
@@ -18,19 +18,12 @@ export default function App() {
       : dispatch(addContact(id, name, number));
   };
 
-  const filterNames = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contactsList.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-
   return (
     <Box>
       <Title title="Phonebook" />
       <ContactForm onSubmit={addNewContact} />
       <Title title="Contacts" />
-      <Filter onChange={filterNames} />
+      <Filter />
       <ContactList />
     </Box>
   );

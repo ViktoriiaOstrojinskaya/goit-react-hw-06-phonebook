@@ -1,4 +1,3 @@
-//import PropTypes from 'prop-types';
 import { nanoid } from '@reduxjs/toolkit';
 import { useState } from 'react';
 import { Form, FormInput, ButtonAddContact } from './ContactForm.styled';
@@ -6,7 +5,7 @@ import { getContacts } from 'redux/selectors';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 
-export default function ContactForm({ onSubmit }) {
+export const ContactForm = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const dispatch = useDispatch();
@@ -80,13 +79,7 @@ export default function ContactForm({ onSubmit }) {
           onChange={handleChange}
         />
       </label>
-      <ButtonAddContact type="submit" onSubmit={onSubmit}>
-        Add contact
-      </ButtonAddContact>
+      <ButtonAddContact type="submit">Add contact</ButtonAddContact>
     </Form>
   );
-}
-
-// ContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };
+};

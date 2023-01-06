@@ -1,4 +1,3 @@
-//import PropTypes from 'prop-types';
 import {
   List,
   ListItem,
@@ -13,7 +12,6 @@ import { getContacts, getFilters } from 'redux/selectors';
 export const ContactList = () => {
   const dispatch = useDispatch();
   const contactsList = useSelector(getContacts);
-
   const filterName = useSelector(getFilters);
 
   const filteredContacts = contactsList.filter(contact =>
@@ -39,8 +37,3 @@ export const ContactList = () => {
     </List>
   );
 };
-
-// ContactList.propTypes = {
-//   contacts: PropTypes.arrayOf(PropTypes.shape).isRequired,
-//   onDeleteContact: PropTypes.func.isRequired,
-// };

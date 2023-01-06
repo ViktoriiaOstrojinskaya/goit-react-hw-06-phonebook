@@ -13,13 +13,12 @@ import { getContacts, getFilters } from 'redux/selectors';
 export const ContactList = () => {
   const dispatch = useDispatch();
   const contactsList = useSelector(getContacts);
+
   const filterName = useSelector(getFilters);
 
   const filteredContacts = contactsList.filter(contact =>
     contact.name.toLowerCase().includes(filterName.toLowerCase())
   );
-
-  console.log(filteredContacts);
 
   return (
     <List>

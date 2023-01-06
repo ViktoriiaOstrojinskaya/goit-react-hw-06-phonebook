@@ -1,10 +1,12 @@
 //import PropTypes from 'prop-types';
 import { FilterInput } from './Filter.styled';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setContactsFilter } from 'redux/filterSlice';
+import { getFilters } from 'redux/selectors';
 
 export const Filter = () => {
   const dispatch = useDispatch();
+  const input = useSelector(getFilters);
 
   const handleFilter = event => {
     const value = event.target.value.toLowerCase();
@@ -14,7 +16,7 @@ export const Filter = () => {
   return (
     <label>
       Find contacts by name
-      <FilterInput type="text" onChange={handleFilter} />
+      <FilterInput type="text" value={input} onChange={handleFilter} />
     </label>
   );
 };

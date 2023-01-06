@@ -7,6 +7,7 @@ import { Box } from './App.styled';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from 'redux/contactsSlice';
 import { getContacts } from 'redux/selectors';
+import { nanoid } from '@reduxjs/toolkit';
 
 export default function App() {
   const dispatch = useDispatch();
@@ -15,7 +16,13 @@ export default function App() {
   const addNewContact = (id, name, number) => {
     contactsList.find(contact => contact.name === name)
       ? alert(`${name} is already in contacts`)
-      : dispatch(addContact(id, name, number));
+      : dispatch(
+          addContact({
+            id: nanoid(),
+            name,
+            number,
+          })
+        );
   };
 
   return (
